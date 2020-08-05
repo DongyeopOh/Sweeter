@@ -1,0 +1,48 @@
+extends layout
+
+block content
+    if user
+        form#postContainer(action="/post", method="post" enctype="multipart/form-data")
+            #imgPreviewContainer
+                h1 Preview
+                img#imgPreview(src='' width='250' alt='preview')
+            textarea#postarea(name="postarea" placeholder="Hi Sweeter" maxlength=140 required)
+            input#imgUrl(type="hidden", name="url")
+            #buttonContainer
+                label#imgLabel(for="img")
+                input#img(type="file" accept="image/*, video/*")
+                button.postButton(type="submit") Sweet!
+        -for(var index=0; index < posting.length; index++)
+            .postingContainer
+                .postIdBox(onclick=`location.href ='/user/${posting[index].dataValues.user.id}'` style="cursor:pointer;")
+                    div
+                        img(src=posting[index].dataValues.user.profile)
+                    span.nickname
+                        =posting[index].dataValues.user.nickname
+                -var date = new Date(posting[index].dataValues.updatedAt)
+                -var year = date.getFullYear()
+                -var month = date.getMonth()+1
+                -var day = date.getDate()
+                -var hour = date.getHours()
+                -var minutes = date.getMinutes()
+                -var seconds = date.getSeconds()
+                span.date #{year}/#{month}/#{day} #{hour}:#{minutes}:#{seconds}
+                .imgBox 
+                    img(src= posting[index].dataValues.img)
+                .contentBox
+                    =posting[index].dataValues.content
+                .postsButton
+                    if posting[index].Likings.length
+                        button.unlike(id=`like${posting[index].dataValues.id}` onclick=`unlike(${posting[index].dataValues.id})`)
+                    else
+                        button.like(id=`like${posting[index].dataValues.id}` onclick=`like(${posting[index].dataValues.id})`)
+                    span(id=`count${posting[index].dataValues.id}`)=liking[index].Likings.length
+                    button.commentBtn(id=`commentBtn${posting[index].dataValues.id}` onclick=`comment(${posting[index].dataValues.id},${user.id})`)
+                    span(id=`ccount${posting[index].dataValues.id}`)=posting[index].comments.length
+                .comment(id=`comment${posting[index].dataValues.id}` style="display:none;")
+                    input.postComment(id=`postComment${posting[index].dataValues.id}` type="text" placeholder="comment.." onkeydown=`if(event.keyCode==13){postComment(${posting[index].dataValues.id})}` autofocus)
+                    input(type="button", value="commit" onclick=`postComment(${posting[index].dataValues.id})`)
+                    .commentList(id=`list${posting[index].dataValues.id}`)    
+        script(src="/javascripts/comment.js")
+        script(src="/javascripts/upload.js")
+        script(src="/javascripts/like.js")

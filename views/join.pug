@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    div#join
+        form#joinForm(action="/join", method="post")
+            label E-mail
+            input(type="email", name="email" required autofocus)
+            label Password
+            input(type="password", name="password" required)
+            label Nickname
+            input(type="text", name="nickname" required)
+            input.authButton(type="submit", value="Join")

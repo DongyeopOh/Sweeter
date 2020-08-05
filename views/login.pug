@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    div#login
+        form#loginForm(action="/login", method="post")
+            label E-mail
+            input(type="email", name="email" required autofocus)
+            label Password
+            input(type="password", name="password" required)
+            input.authButton(type="button" onclick="location.href = '/join'" style="width:183px;height:45px" value="Join")
+            input.authButton(type="submit", value="Login" style="width:183px;height:45px")
+            img(src="/images/kakao_login_medium_narrow.png" onclick="location.href='/kakao'")
