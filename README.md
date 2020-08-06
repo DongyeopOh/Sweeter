@@ -7,4 +7,4 @@ Node.js Express, MySQL, Sequelize.js, pug, Passport.js.
 
 I'm gonna add to Chat function through the Socket.io.
 
-See you next version, bye.
+See you next version, Thank you.
