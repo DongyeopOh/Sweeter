@@ -23,13 +23,7 @@ passportConfig(passport);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(logger('combined'));
-  app.use(helmet());
-  app.use(hpp());
-}else{
   app.use(logger('dev'));
-}
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
